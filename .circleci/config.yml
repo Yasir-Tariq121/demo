@@ -2,12 +2,15 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 parameters:
-  branch_name:
+  platform_branch:
     type: string
     default: test-branch
-  myspecialversion:
+  platform_commit:
     type: string
-    default: test-version
+    default: test-commit
+  platform_environment:
+    type: string
+    default: sample-environment
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -23,10 +26,13 @@ jobs:
       - checkout
       - run:
           name: "Say branch name"
-          command: "echo << pipeline.parameters.branch_name >>"
+          command: "echo << pipeline.parameters.platform_branch >>"
       - run:
-          name: "Say speacial version"
-          command: "echo << pipeline.parameters.myspecialversion >>"
+          name: "Say environment"
+          command: "echo << pipeline.parameters.platform_environment >>"
+      - run:
+          name: "Say commit sha1"
+          command: "echo << pipeline.parameters.platform_commit >>"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
